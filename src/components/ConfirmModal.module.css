@@ -1,0 +1,58 @@
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 98;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.card {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  padding: 22px 20px;
+  animation: popIn 0.2s ease-out;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.body {
+  font-size: 13.5px;
+  color: var(--text-secondary-60);
+  line-height: 1.5;
+  margin-bottom: 22px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.button {
+  flex: 1;
+  text-align: center;
+  padding: 13px;
+  border-radius: 12px;
+  font-size: 14.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancel {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(242, 239, 233, 0.8);
+}
+
+.confirm {
+  color: #121316;
+}

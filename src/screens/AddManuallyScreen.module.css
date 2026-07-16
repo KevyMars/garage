@@ -1,0 +1,24 @@
+.vinRow {
+  display: flex;
+  gap: 8px;
+  margin: 6px 0 6px;
+}
+
+.vinInput {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+}
+
+.decodeButton {
+  flex-shrink: 0;
+  background: var(--accent-tint-14);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 13.5px;
+  padding: 0 16px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}

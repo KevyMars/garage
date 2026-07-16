@@ -1,0 +1,62 @@
+.screen {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.badge {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: var(--success-tint-14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+  animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.helper {
+  font-size: 13.5px;
+  color: var(--text-secondary-50);
+  margin-bottom: 26px;
+  text-align: center;
+}
+
+.summaryCard {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 26px;
+}
+
+.summaryNickname {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--text-primary);
+}
+
+.summarySubtitle {
+  font-size: 13px;
+  color: var(--text-secondary-50);
+  margin-top: 2px;
+}
+
+.doneButton {
+  width: 100%;
+}

@@ -63,6 +63,13 @@ export function VehicleDetailScreen() {
             </div>
           )}
 
+          {vehicle.notes && (
+            <div className={styles.section}>
+              <div className="section-label">Notes</div>
+              <div className={styles.notesCard}>{vehicle.notes}</div>
+            </div>
+          )}
+
           <div className={styles.section}>
             <div className="section-label">History</div>
             <div className={styles.historyCard}>

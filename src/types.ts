@@ -31,6 +31,7 @@ export interface Vehicle {
   colorB: string;
   mileage: number;
   photo?: string;
+  notes?: string;
   history: HistoryEntry[];
   upcoming: UpcomingItem[];
 }

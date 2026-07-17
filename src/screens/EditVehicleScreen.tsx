@@ -23,6 +23,7 @@ export function EditVehicleScreen() {
   const [mileage, setMileage] = useState(String(vehicle?.mileage ?? ''));
   const [history, setHistory] = useState<HistoryEntry[]>(vehicle ? vehicle.history.map((h) => ({ ...h })) : []);
   const [photo, setPhoto] = useState(vehicle?.photo);
+  const [notes, setNotes] = useState(vehicle?.notes ?? '');
 
   if (!vehicle) return null;
 
@@ -42,7 +43,7 @@ export function EditVehicleScreen() {
     if (photo && photo !== vehicle.photo) garage.setPhoto(vehicle.id, photo);
     garage.saveEditVehicle(
       vehicle.id,
-      { nickname, year, make, model, trim, vin, plate, mileage: parseInt(mileage, 10) || 0 },
+      { nickname, year, make, model, trim, vin, plate, mileage: parseInt(mileage, 10) || 0, notes },
       history,
     );
     nav.pop();
@@ -127,9 +128,18 @@ export function EditVehicleScreen() {
         <input
           type="number"
           className="text-input"
-          style={{ marginBottom: 22 }}
           value={mileage}
           onChange={(e) => setMileage(e.target.value)}
+        />
+
+        <label className="field-label">Notes</label>
+        <textarea
+          className="text-input"
+          placeholder="Mods, quirks, reminders, anything else worth remembering…"
+          rows={3}
+          style={{ marginBottom: 22 }}
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
         />
 
         <div className="section-label" style={{ marginBottom: 10 }}>

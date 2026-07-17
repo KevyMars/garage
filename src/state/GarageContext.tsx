@@ -38,7 +38,7 @@ interface GarageContextValue {
   setPhoto: (vehicleId: string, photo: string) => void;
   saveEditVehicle: (
     vehicleId: string,
-    fields: Partial<Pick<Vehicle, 'nickname' | 'year' | 'make' | 'model' | 'trim' | 'plate' | 'vin' | 'mileage'>>,
+    fields: Partial<Pick<Vehicle, 'nickname' | 'year' | 'make' | 'model' | 'trim' | 'plate' | 'vin' | 'mileage' | 'notes'>>,
     history: HistoryEntry[],
   ) => void;
   logService: (vehicleId: string, entry: HistoryEntry) => void;
@@ -105,7 +105,9 @@ export function GarageProvider({ children }: { children: ReactNode }) {
   const saveEditVehicle = useCallback(
     (
       vehicleId: string,
-      fields: Partial<Pick<Vehicle, 'nickname' | 'year' | 'make' | 'model' | 'trim' | 'plate' | 'vin' | 'mileage'>>,
+      fields: Partial<
+        Pick<Vehicle, 'nickname' | 'year' | 'make' | 'model' | 'trim' | 'plate' | 'vin' | 'mileage' | 'notes'>
+      >,
       history: HistoryEntry[],
     ) => {
       setGarage((s) => ({

@@ -1,4 +1,5 @@
 import { useRef, useState, type DragEvent } from 'react';
+import { fileToResizedDataUrl } from '../utils/image';
 import styles from './PhotoPicker.module.css';
 
 interface PhotoPickerProps {
@@ -7,23 +8,18 @@ interface PhotoPickerProps {
   placeholder: string;
 }
 
-function readAsDataUrl(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
-
 export function PhotoPicker({ photo, onPick, placeholder }: PhotoPickerProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragOver, setDragOver] = useState(false);
 
   const handleFile = async (file: File | null | undefined) => {
     if (!file || !file.type.startsWith('image/')) return;
-    const dataUrl = await readAsDataUrl(file);
-    onPick(dataUrl);
+    try {
+      const dataUrl = await fileToResizedDataUrl(file);
+      onPick(dataUrl);
+    } catch {
+      // Leave the existing photo (or placeholder) in place if the image can't be read.
+    }
   };
 
   const onDrop = (e: DragEvent<HTMLDivElement>) => {

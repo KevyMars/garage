@@ -55,15 +55,20 @@ export function GarageProvider({ children }: { children: ReactNode }) {
   const [scanning, setScanning] = useState(false);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ vehicles, archived }));
-  }, [vehicles, archived]);
-
   const showToast = useCallback((message: string) => {
     if (toastTimer.current) clearTimeout(toastTimer.current);
     setToast(message);
     toastTimer.current = setTimeout(() => setToast(null), 2200);
   }, []);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ vehicles, archived }));
+    } catch (err) {
+      console.error('Failed to save garage data to localStorage', err);
+      showToast("Couldn't save — storage is full");
+    }
+  }, [vehicles, archived, showToast]);
 
   const askDelete = useCallback((vehicleId: string) => setConfirmModal({ type: 'delete', vehicleId }), []);
   const askEdit = useCallback((vehicleId: string) => setConfirmModal({ type: 'edit', vehicleId }), []);

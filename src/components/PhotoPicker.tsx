@@ -5,7 +5,6 @@ interface PhotoPickerProps {
   photo?: string;
   onPick: (dataUrl: string) => void;
   placeholder: string;
-  overlay?: boolean;
 }
 
 function readAsDataUrl(file: File): Promise<string> {
@@ -17,7 +16,7 @@ function readAsDataUrl(file: File): Promise<string> {
   });
 }
 
-export function PhotoPicker({ photo, onPick, placeholder, overlay = false }: PhotoPickerProps) {
+export function PhotoPicker({ photo, onPick, placeholder }: PhotoPickerProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragOver, setDragOver] = useState(false);
 
@@ -29,20 +28,14 @@ export function PhotoPicker({ photo, onPick, placeholder, overlay = false }: Pho
 
   const onDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    e.stopPropagation();
     setDragOver(false);
     handleFile(e.dataTransfer.files?.[0]);
   };
 
-  const rootClass = overlay ? styles.overlayRoot : styles.standaloneRoot;
-
   return (
     <div
-      className={`${rootClass} ${dragOver ? styles.dragOver : ''}`}
-      onClick={(e) => {
-        e.stopPropagation();
-        inputRef.current?.click();
-      }}
+      className={`${styles.root} ${dragOver ? styles.dragOver : ''}`}
+      onClick={() => inputRef.current?.click()}
       onDragOver={(e) => {
         e.preventDefault();
         setDragOver(true);
@@ -57,15 +50,7 @@ export function PhotoPicker({ photo, onPick, placeholder, overlay = false }: Pho
         className={styles.input}
         onChange={(e) => handleFile(e.target.files?.[0])}
       />
-      {photo ? (
-        <img src={photo} alt="" className={styles.image} />
-      ) : overlay ? (
-        <div className={styles.overlayPlaceholder}>
-          <span className={styles.placeholder}>{placeholder}</span>
-        </div>
-      ) : (
-        <span className={styles.placeholder}>{placeholder}</span>
-      )}
+      {photo ? <img src={photo} alt="" className={styles.image} /> : <span className={styles.placeholder}>{placeholder}</span>}
     </div>
   );
 }

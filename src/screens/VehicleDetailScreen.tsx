@@ -1,6 +1,6 @@
 import { useGarage } from '../state/GarageContext';
 import { useNavigation } from '../state/NavigationContext';
-import { PhotoPicker } from '../components/PhotoPicker';
+import { VehiclePhoto } from '../components/VehiclePhoto';
 import { StatBox } from '../components/StatBox';
 import { UpcomingRow } from '../components/UpcomingRow';
 import { HistoryRow } from '../components/HistoryRow';
@@ -9,7 +9,7 @@ import { fmtMi, vehicleSubtitle } from '../data/constants';
 import styles from './VehicleDetailScreen.module.css';
 
 export function VehicleDetailScreen() {
-  const { vehicles, setPhoto, askEdit, askDelete } = useGarage();
+  const { vehicles, askEdit, askDelete } = useGarage();
   const nav = useNavigation();
   const { vehicleId } = nav.current.params;
   const vehicle = vehicles.find((v) => v.id === vehicleId);
@@ -28,12 +28,7 @@ export function VehicleDetailScreen() {
           </button>
           <div className={styles.typeBadge}>{vehicle.isMoto ? 'MOTORCYCLE' : 'CAR / TRUCK'}</div>
           <div className={styles.plateChip}>{vehicle.plate}</div>
-          <PhotoPicker
-            overlay
-            photo={vehicle.photo}
-            placeholder="Add photo"
-            onPick={(dataUrl) => setPhoto(vehicle.id, dataUrl)}
-          />
+          <VehiclePhoto photo={vehicle.photo} isMoto={vehicle.isMoto} iconSize={64} />
         </div>
 
         <div className={styles.info}>

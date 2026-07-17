@@ -1,13 +1,11 @@
 import type { Vehicle } from '../types';
 import { URGENCY_COLOR, URGENCY_ORDER, fmtMi, vehicleSubtitle } from '../data/constants';
 import { ClockIcon } from './Icons';
-import { PhotoPicker } from './PhotoPicker';
-import { useGarage } from '../state/GarageContext';
+import { VehiclePhoto } from './VehiclePhoto';
 import { useNavigation } from '../state/NavigationContext';
 import styles from './VehicleCard.module.css';
 
 export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
-  const garage = useGarage();
   const nav = useNavigation();
 
   const sorted = [...vehicle.upcoming].sort((a, b) => URGENCY_ORDER[a.urgency] - URGENCY_ORDER[b.urgency]);
@@ -22,12 +20,7 @@ export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
         style={{ background: `linear-gradient(135deg, ${vehicle.colorA}, ${vehicle.colorB})` }}
       >
         <div className={styles.typeBadge}>{vehicle.isMoto ? 'MOTORCYCLE' : 'CAR / TRUCK'}</div>
-        <PhotoPicker
-          overlay
-          photo={vehicle.photo}
-          placeholder="Add photo"
-          onPick={(dataUrl) => garage.setPhoto(vehicle.id, dataUrl)}
-        />
+        <VehiclePhoto photo={vehicle.photo} isMoto={vehicle.isMoto} iconSize={40} />
       </div>
       <div className={styles.body}>
         <div className={styles.nickname}>{vehicle.nickname}</div>

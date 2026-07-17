@@ -1,11 +1,24 @@
+import { existsSync, readFileSync } from 'node:fs'
+import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+
+const certDir = fileURLToPath(new URL('./certs', import.meta.url))
+const keyPath = `${certDir}/key.pem`
+const certPath = `${certDir}/cert.pem`
+const hasCerts = existsSync(keyPath) && existsSync(certPath)
+const wantsHttps = process.env.VITE_HTTPS === '1'
 
 // https://vite.dev/config/
 export default defineConfig({
   server: {
     host: true,
+    // Camera access (getUserMedia) requires a secure context. `npm run dev:https`
+    // (after generating certs/key.pem + certs/cert.pem with mkcert, see README)
+    // serves over HTTPS for LAN/phone testing. Plain `npm run dev` stays HTTP,
+    // since browsers won't trust this locally-issued cert without extra setup.
+    https: wantsHttps && hasCerts ? { key: readFileSync(keyPath), cert: readFileSync(certPath) } : undefined,
   },
   plugins: [
     react(),

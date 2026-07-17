@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useGarage } from '../state/GarageContext';
 import { useNavigation } from '../state/NavigationContext';
 import { ScreenHeader } from '../components/ScreenHeader';
-import { mockDecodeVin } from '../data/vinDecode';
+import { decodeVin, VinDecodeError } from '../data/vinDecode';
 import styles from './ManualVinScreen.module.css';
 
 export function ManualVinScreen() {
@@ -10,13 +10,17 @@ export function ManualVinScreen() {
   const nav = useNavigation();
   const [vin, setVin] = useState('');
 
-  const decode = () => {
+  const decode = async () => {
     garage.setScanning(true);
-    mockDecodeVin(vin).then((draft) => {
+    try {
+      const draft = await decodeVin(vin);
       garage.setScanning(false);
       garage.setDraft(draft);
       nav.push('scanResult');
-    });
+    } catch (err) {
+      garage.setScanning(false);
+      garage.showToast(err instanceof VinDecodeError ? err.message : 'Could not decode that VIN.');
+    }
   };
 
   return (

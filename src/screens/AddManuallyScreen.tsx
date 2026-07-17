@@ -2,31 +2,19 @@ import { useState } from 'react';
 import { useGarage } from '../state/GarageContext';
 import { useNavigation } from '../state/NavigationContext';
 import { ScreenHeader } from '../components/ScreenHeader';
-import { mockDecodeVin } from '../data/vinDecode';
 import { CAR_GRADIENT, MOTO_GRADIENT } from '../data/constants';
 import type { Vehicle } from '../types';
-import styles from './AddManuallyScreen.module.css';
 
 export function AddManuallyScreen() {
   const garage = useGarage();
   const nav = useNavigation();
 
-  const [vin, setVin] = useState('');
   const [isMoto, setIsMoto] = useState(false);
   const [year, setYear] = useState('');
   const [make, setMake] = useState('');
   const [model, setModel] = useState('');
   const [nickname, setNickname] = useState('');
   const [mileage, setMileage] = useState('');
-
-  const decode = () => {
-    garage.setScanning(true);
-    mockDecodeVin(vin, isMoto).then((draft) => {
-      garage.setScanning(false);
-      garage.setDraft(draft);
-      nav.push('scanResult');
-    });
-  };
 
   const addToGarage = () => {
     const mileageNum = parseInt(mileage, 10) || 0;
@@ -39,7 +27,7 @@ export function AddManuallyScreen() {
       model: model || 'Vehicle',
       trim: '',
       nickname: nickname || `${make || 'New'} ${model || 'Vehicle'}`,
-      vin: vin ? vin.toUpperCase() : '—',
+      vin: '—',
       plate: '— —',
       colorA,
       colorB,
@@ -53,29 +41,8 @@ export function AddManuallyScreen() {
 
   return (
     <div className="scroll-screen">
-      <ScreenHeader title="Add Manually" />
+      <ScreenHeader title="Add Without VIN" subtitle="You can add the VIN later from Edit Vehicle" />
       <div className="scroll-body">
-        <label className="field-label">VIN (optional)</label>
-        <div className={styles.vinRow}>
-          <input
-            type="text"
-            className="text-input mono"
-            style={{ margin: 0 }}
-            placeholder="17-character VIN"
-            value={vin}
-            onChange={(e) => setVin(e.target.value)}
-          />
-          <div className={styles.decodeButton} onClick={decode}>
-            Decode
-          </div>
-        </div>
-
-        <div className="or-divider">
-          <div className="line" />
-          <span>or enter details manually</span>
-          <div className="line" />
-        </div>
-
         <div className="segmented">
           <div
             className="segment"

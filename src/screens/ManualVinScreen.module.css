@@ -1,13 +1,14 @@
+.helper {
+  font-size: 13px;
+  color: rgba(242, 239, 233, 0.5);
+  line-height: 1.5;
+  margin: 6px 0 20px;
+}
+
 .vinRow {
   display: flex;
   gap: 8px;
   margin: 6px 0 6px;
-}
-
-.vinInput {
-  flex: 1;
-  min-width: 0;
-  margin: 0;
 }
 
 .decodeButton {

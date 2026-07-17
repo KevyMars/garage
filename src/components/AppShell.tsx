@@ -9,6 +9,7 @@ import { ServiceLogScreen } from '../screens/ServiceLogScreen';
 import { VehicleDetailScreen } from '../screens/VehicleDetailScreen';
 import { ScanIntroScreen } from '../screens/ScanIntroScreen';
 import { ConfirmVehicleScreen } from '../screens/ConfirmVehicleScreen';
+import { ManualVinScreen } from '../screens/ManualVinScreen';
 import { AddManuallyScreen } from '../screens/AddManuallyScreen';
 import { VehicleAddedScreen } from '../screens/VehicleAddedScreen';
 import { ArchiveScreen } from '../screens/ArchiveScreen';
@@ -30,6 +31,8 @@ function renderScreen(name: string) {
       return <ScanIntroScreen />;
     case 'scanResult':
       return <ConfirmVehicleScreen />;
+    case 'manualVin':
+      return <ManualVinScreen />;
     case 'manualEntry':
       return <AddManuallyScreen />;
     case 'addSuccess':

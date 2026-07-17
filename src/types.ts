@@ -43,6 +43,7 @@ export type ScreenName =
   | 'vehicleDetail'
   | 'scanIntro'
   | 'scanResult'
+  | 'manualVin'
   | 'manualEntry'
   | 'addSuccess'
   | 'archive'

@@ -58,7 +58,7 @@ export function ScanIntroScreen() {
         <div className={`primary-button ${styles.scanButton}`} onClick={startScan}>
           Simulate Scan
         </div>
-        <div className={styles.manualLink} onClick={() => nav.push('manualEntry')}>
+        <div className={styles.manualLink} onClick={() => nav.push('manualVin')}>
           Enter VIN manually
         </div>
       </div>

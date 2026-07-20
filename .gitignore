@@ -26,3 +26,5 @@ certs/
 *.njsproj
 *.sln
 *.sw?
+.vercel
+.env*

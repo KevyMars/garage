@@ -31,8 +31,10 @@ interface GarageContextValue {
   setScanning: (scanning: boolean) => void;
   askDelete: (vehicleId: string) => void;
   askEdit: (vehicleId: string) => void;
+  askDeleteArchived: (vehicleId: string) => void;
   closeModal: () => void;
   deleteVehicle: (vehicleId: string) => void;
+  deleteArchivedVehicle: (vehicleId: string) => void;
   restoreVehicle: (vehicleId: string) => void;
   addVehicle: (vehicle: Vehicle) => void;
   setPhoto: (vehicleId: string, photo: string) => void;
@@ -72,6 +74,7 @@ export function GarageProvider({ children }: { children: ReactNode }) {
 
   const askDelete = useCallback((vehicleId: string) => setConfirmModal({ type: 'delete', vehicleId }), []);
   const askEdit = useCallback((vehicleId: string) => setConfirmModal({ type: 'edit', vehicleId }), []);
+  const askDeleteArchived = useCallback((vehicleId: string) => setConfirmModal({ type: 'deleteArchived', vehicleId }), []);
   const closeModal = useCallback(() => setConfirmModal(null), []);
 
   const deleteVehicle = useCallback(
@@ -83,6 +86,15 @@ export function GarageProvider({ children }: { children: ReactNode }) {
       });
       setConfirmModal(null);
       showToast('Vehicle moved to archive');
+    },
+    [showToast],
+  );
+
+  const deleteArchivedVehicle = useCallback(
+    (vehicleId: string) => {
+      setGarage((s) => ({ ...s, archived: s.archived.filter((x) => x.id !== vehicleId) }));
+      setConfirmModal(null);
+      showToast('Vehicle deleted');
     },
     [showToast],
   );
@@ -174,8 +186,10 @@ export function GarageProvider({ children }: { children: ReactNode }) {
       setScanning,
       askDelete,
       askEdit,
+      askDeleteArchived,
       closeModal,
       deleteVehicle,
+      deleteArchivedVehicle,
       restoreVehicle,
       addVehicle,
       setPhoto,
@@ -192,8 +206,10 @@ export function GarageProvider({ children }: { children: ReactNode }) {
       showToast,
       askDelete,
       askEdit,
+      askDeleteArchived,
       closeModal,
       deleteVehicle,
+      deleteArchivedVehicle,
       restoreVehicle,
       addVehicle,
       setPhoto,

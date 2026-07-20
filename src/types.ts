@@ -75,6 +75,6 @@ export interface VinDraft {
 }
 
 export interface ConfirmModalState {
-  type: 'delete' | 'edit';
+  type: 'delete' | 'edit' | 'deleteArchived';
   vehicleId: string;
 }

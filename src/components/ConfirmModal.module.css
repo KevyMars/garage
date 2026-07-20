@@ -56,3 +56,26 @@
 .confirm {
   color: #121316;
 }
+
+.stackedActions {
+  display: flex;
+  flex-direction: column;
+}
+
+.stackedButton {
+  text-align: center;
+  padding: 13px;
+  border-radius: 12px;
+  font-size: 14.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancelLink {
+  text-align: center;
+  padding: 14px 0 2px;
+  color: var(--text-secondary-50);
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+}
